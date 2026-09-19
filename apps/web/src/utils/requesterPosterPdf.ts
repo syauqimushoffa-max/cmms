@@ -98,6 +98,6 @@ export function createRequesterPosterPdf({ requesterUrl, qrDataUrl, logoDataUrl 
 }
 
 export async function downloadRequesterPosterPdf(requesterUrl: string, qrDataUrl: string) {
-  const logoDataUrl = await loadAssetDataUrl("/brand/sugi_mark_white.png");
+  const logoDataUrl = await loadAssetDataUrl("/brand/pbs_mark_white.png");
   createRequesterPosterPdf({ requesterUrl, qrDataUrl, logoDataUrl }).save("pbs-cmms-Work-Order-QR-Poster.pdf");
 }

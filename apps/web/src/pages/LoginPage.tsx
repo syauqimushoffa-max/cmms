@@ -42,7 +42,7 @@ export function LoginPage() {
   return (
     <main className="login-shell">
       <section className="login-brand-panel">
-        <img src="/brand/sugi_mark_white.png" alt="Pangan Berkah Sentosa" />
+        <img src="/brand/pbs_mark_white.png" alt="Pangan Berkah Sentosa" />
         <div>
           <p className="hero-eyebrow">
             <span aria-hidden="true" />

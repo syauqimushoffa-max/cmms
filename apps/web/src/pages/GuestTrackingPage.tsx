@@ -159,7 +159,7 @@ export function GuestTrackingPage() {
 
   return <div className="guest-tracker-shell">
     <header className="guest-tracker-topbar">
-      <Link to="/requester" className="guest-tracker-brand"><span><img src="/brand/sugi_symbol.png" alt="" /></span><div><small>PBS CMMS</small><strong>Guest Work Order Tracker</strong></div></Link>
+      <Link to="/requester" className="guest-tracker-brand"><span><img src="/brand/pbs_symbol.png" alt="" /></span><div><small>PBS CMMS</small><strong>Guest Work Order Tracker</strong></div></Link>
       <Link to="/requester"><Home size={16} />New request</Link>
     </header>
 

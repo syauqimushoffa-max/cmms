@@ -106,7 +106,7 @@ export function TvDashboardPage() {
       {arrivalNotice ? <div className="tv-arrival-notice" role="status" aria-live="assertive"><Volume2 size={22} />{arrivalNotice}</div> : null}
       <header className="tv-header">
         <div className="tv-brand-block">
-          <img src="/brand/sugi_mark_white.png" alt="Pangan Berkah Sentosa" />
+          <img src="/brand/pbs_mark_white.png" alt="Pangan Berkah Sentosa" />
           <div>
             <p>Maintenance Department</p>
             <h1>Work Order Board</h1>

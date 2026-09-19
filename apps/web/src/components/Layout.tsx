@@ -287,7 +287,7 @@ export function Layout() {
         <header className="technician-app-topbar">
           <div className="technician-brand-lockup">
             <span className="technician-brand-mark">
-              <img src="/brand/sugi_symbol.png" alt="PBS Grand" />
+              <img src="/brand/pbs_symbol.png" alt="PBS Grand" />
             </span>
             <div>
               <span>Sugi Tech</span>
@@ -374,7 +374,7 @@ export function Layout() {
       <aside className={`sidebar ${mobileNavOpen ? "mobile-open" : ""}`} id="mobile-main-navigation">
         <div className="brand">
           <span className="brand-mark">
-            <img src="/brand/sugi_symbol.png" alt="PBS Grand" />
+            <img src="/brand/pbs_symbol.png" alt="PBS Grand" />
           </span>
           <div>
             <strong>PBS CMMS</strong>
