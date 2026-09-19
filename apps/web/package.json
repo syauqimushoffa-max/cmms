@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter @pbs-cmms/shared build && vite --host 0.0.0.0",
+    "dev": "vite --host 0.0.0.0",
     "build": "pnpm --filter @pbs-cmms/shared build && tsc -p tsconfig.json && vite build",
     "typecheck": "pnpm --filter @pbs-cmms/shared build && tsc -p tsconfig.json --noEmit",
     "preview": "vite preview --host 0.0.0.0"
