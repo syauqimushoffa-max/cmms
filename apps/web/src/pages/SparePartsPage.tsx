@@ -39,9 +39,9 @@ type IssueFeedback = {
 };
 const spareStaticRoutes = new Set(["scanner", "inventory", "setup"]);
 
-const money = new Intl.NumberFormat("en-MY", {
+const money = new Intl.NumberFormat("en-ID", {
   style: "currency",
-  currency: "MYR",
+  currency: "IDR",
   maximumFractionDigits: 0
 });
 
@@ -155,6 +155,17 @@ export function SparePartsPage() {
   const [issueNote, setIssueNote] = useState("");
   const [masterText, setMasterText] = useState("");
   const [supplierText, setSupplierText] = useState("");
+  const [newSpareForm, setNewSpareForm] = useState({
+    itemNo: "",
+    name: "",
+    category: "",
+    uom: "pcs",
+    currentStock: "0",
+    minStock: "0",
+    maxStock: "0",
+    supplier: "",
+    price: "0"
+  });
   const [syncSettings, setSyncSettings] = useState<SpareSyncSettings>({
     scriptUrl: "",
     hasToken: false,
@@ -598,6 +609,49 @@ export function SparePartsPage() {
       setMessage("Sheet sync settings saved.");
     } catch (settingsError) {
       setError(settingsError instanceof Error ? settingsError.message : "Unable to save sheet sync settings.");
+    } finally {
+      setBusy("");
+    }
+  }
+
+  async function createNewSparePart(event: FormEvent) {
+    event.preventDefault();
+    if (!currentUser) {
+      return;
+    }
+
+    setBusy("create-spare");
+    setError("");
+    setMessage("");
+    try {
+      const created = await api.createSparePart({
+        actorId: currentUser.id,
+        itemNo: newSpareForm.itemNo.trim(),
+        name: newSpareForm.name.trim(),
+        category: newSpareForm.category.trim(),
+        uom: newSpareForm.uom.trim() || "pcs",
+        currentStock: Number(newSpareForm.currentStock || 0),
+        minStock: Number(newSpareForm.minStock || 0),
+        maxStock: Number(newSpareForm.maxStock || 0),
+        supplier: newSpareForm.supplier.trim(),
+        price: Number(newSpareForm.price || 0)
+      });
+      setNewSpareForm({
+        itemNo: "",
+        name: "",
+        category: "",
+        uom: "pcs",
+        currentStock: "0",
+        minStock: "0",
+        maxStock: "0",
+        supplier: "",
+        price: "0"
+      });
+      setMessage(`Spare part ${created.itemNo} created successfully.`);
+      await loadInventory();
+      navigate(`/spare-parts/${encodeURIComponent(created.itemNo)}`);
+    } catch (createError) {
+      setError(createError instanceof Error ? createError.message : "Unable to create spare part.");
     } finally {
       setBusy("");
     }
@@ -1149,6 +1203,62 @@ export function SparePartsPage() {
 
     return (
       <div className="spare-setup-grid">
+        <section className="section-panel spare-import-panel new-sparepart-panel">
+          <div className="section-header">
+            <div>
+              <h2>New Spare Part</h2>
+              <span>Add part manually</span>
+            </div>
+            <Package size={20} aria-hidden="true" />
+          </div>
+          <form onSubmit={createNewSparePart}>
+            <label>
+              Item number
+              <input value={newSpareForm.itemNo} onChange={(event) => setNewSpareForm((current) => ({ ...current, itemNo: event.target.value }))} placeholder="SP-001" required />
+            </label>
+            <label>
+              Nama sparepart <span className="required-field">Required</span>
+              <input value={newSpareForm.name} onChange={(event) => setNewSpareForm((current) => ({ ...current, name: event.target.value }))} placeholder="Nama sparepart" required />
+            </label>
+            <div className="sheet-name-grid">
+              <label>
+                Category
+                <input value={newSpareForm.category} onChange={(event) => setNewSpareForm((current) => ({ ...current, category: event.target.value }))} placeholder="Bearing" />
+              </label>
+              <label>
+                UOM
+                <input value={newSpareForm.uom} onChange={(event) => setNewSpareForm((current) => ({ ...current, uom: event.target.value }))} placeholder="pcs" />
+              </label>
+              <label>
+                Current stock
+                <input type="number" min="0" step="1" value={newSpareForm.currentStock} onChange={(event) => setNewSpareForm((current) => ({ ...current, currentStock: event.target.value }))} />
+              </label>
+              <label>
+                Min stock
+                <input type="number" min="0" step="1" value={newSpareForm.minStock} onChange={(event) => setNewSpareForm((current) => ({ ...current, minStock: event.target.value }))} />
+              </label>
+              <label>
+                Max stock
+                <input type="number" min="0" step="1" value={newSpareForm.maxStock} onChange={(event) => setNewSpareForm((current) => ({ ...current, maxStock: event.target.value }))} />
+              </label>
+              <label>
+                Supplier
+                <input value={newSpareForm.supplier} onChange={(event) => setNewSpareForm((current) => ({ ...current, supplier: event.target.value }))} placeholder="Supplier" />
+              </label>
+              <label>
+                Price (IDR)
+                <input type="number" min="0" step="0.01" value={newSpareForm.price} onChange={(event) => setNewSpareForm((current) => ({ ...current, price: event.target.value }))} />
+              </label>
+            </div>
+            <div className="spare-sync-actions">
+              <button type="submit" disabled={busy === "create-spare"}>
+                <Package size={16} aria-hidden="true" />
+                {busy === "create-spare" ? "Saving" : "New Sparepart"}
+              </button>
+            </div>
+          </form>
+        </section>
+
         <section className="section-panel spare-import-panel">
           <div className="section-header">
             <div>

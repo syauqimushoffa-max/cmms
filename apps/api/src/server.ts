@@ -22,6 +22,7 @@ import {
   claimWorkOrder,
   createUser,
   createPmPlan,
+  createSparePart,
   ensurePlantPmSchedules,
   createIssueCategory,
   createAuthSession,
@@ -759,6 +760,27 @@ app.post("/api/pm/schedules/:id/verify", (request, response) => {
 
 app.get("/api/spare-parts", (_request, response) => {
   response.json(listSpareInventory());
+});
+
+app.post("/api/spare-parts", (request, response) => {
+  response.status(201).json(createSparePart({
+    actorId: String(request.body.actorId || ""),
+    itemNo: String(request.body.itemNo || ""),
+    name: String(request.body.name || request.body.description || ""),
+    category: request.body.category ? String(request.body.category) : undefined,
+    uom: request.body.uom ? String(request.body.uom) : undefined,
+    currentStock: request.body.currentStock === undefined ? undefined : Number(request.body.currentStock),
+    minStock: request.body.minStock === undefined ? undefined : Number(request.body.minStock),
+    maxStock: request.body.maxStock === undefined ? undefined : Number(request.body.maxStock),
+    supplier: request.body.supplier ? String(request.body.supplier) : undefined,
+    price: request.body.price === undefined ? undefined : Number(request.body.price),
+    partRank: request.body.partRank ? String(request.body.partRank) : undefined,
+    status: request.body.status ? String(request.body.status) : undefined,
+    stockRank: request.body.stockRank ? String(request.body.stockRank) : undefined,
+    source: request.body.source ? String(request.body.source) : undefined,
+    leadTime: request.body.leadTime ? String(request.body.leadTime) : undefined,
+    description: request.body.description ? String(request.body.description) : undefined
+  }));
 });
 
 app.get("/api/spare-parts/qr/lookup", (request, response) => {

@@ -6,6 +6,7 @@ import type {
   AirLeakSyncSettings,
   AuthSession,
   ClaimWorkOrderInput,
+  CreateSparePartInput,
   CreateWorkOrderInput,
   DashboardSummary,
   DeleteWorkOrderInput,
@@ -34,6 +35,7 @@ import type {
   SpareImportResult,
   SpareInventoryResponse,
   SpareIssueInput,
+  SparePart,
   SparePartDetail,
   SpareQrLookupResult,
   SpareSyncSettings,
@@ -300,6 +302,11 @@ export const api = {
       body: JSON.stringify(input)
     }),
   spareInventory: () => request<SpareInventoryResponse>("/api/spare-parts"),
+  createSparePart: (input: CreateSparePartInput) =>
+    request<SparePart>("/api/spare-parts", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
   spareMovementsForActor: (actorId: string) =>
     request<StockMovementDetail[]>(`/api/spare-parts/history/by-actor?actorId=${encodeURIComponent(actorId)}`),
   sparePart: (itemNo: string) => request<SparePartDetail>(`/api/spare-parts/${encodeURIComponent(itemNo)}`),

@@ -8344,12 +8344,23 @@ tbody tr:hover {
   gap: 12px;
 }
 
+.new-sparepart-panel {
+  border-top: 3px solid var(--maroon);
+}
+
 .spare-import-panel label {
   display: grid;
   gap: 7px;
   color: var(--ink-soft);
   font-size: 13px;
   font-weight: 900;
+}
+
+.required-field {
+  color: var(--maroon);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .spare-import-panel textarea {

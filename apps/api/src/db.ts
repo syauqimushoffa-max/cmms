@@ -2689,6 +2689,80 @@ export function listSpareInventory(): SpareInventoryResponse {
   };
 }
 
+export function createSparePart(input: {
+  actorId: string;
+  itemNo: string;
+  name: string;
+  category?: string;
+  uom?: string;
+  currentStock?: number;
+  minStock?: number;
+  maxStock?: number;
+  supplier?: string;
+  price?: number;
+  partRank?: string;
+  status?: string;
+  stockRank?: string;
+  source?: string;
+  leadTime?: string;
+  description?: string;
+}): SparePart {
+  requireSpareManager(input.actorId);
+  const itemNo = input.itemNo.trim();
+  const name = (input.name || input.description || "").trim();
+  const category = (input.category || "").trim();
+  const uom = (input.uom || "pcs").trim() || "pcs";
+
+  if (!itemNo) {
+    throw new Error("Spare part item number is required.");
+  }
+  if (!name) {
+    throw new Error("Spare part name is required.");
+  }
+  if (db.prepare("SELECT 1 FROM spare_parts WHERE itemNo = ?").get(itemNo)) {
+    throw new Error("A spare part with this item number already exists.");
+  }
+
+  const timestamp = now();
+  const currentStock = Number(input.currentStock ?? 0);
+  const minStock = Number(input.minStock ?? 0);
+  const maxStock = Number(input.maxStock ?? 0);
+
+  db.prepare(`
+    INSERT INTO spare_parts (plantId,
+      itemNo, no, category, description, uom, price, partRank, status, stockRank,
+      minStock, maxStock, searchName, openingStock, currentStock, source,
+      supplier, supplier1, supplier2, supplier3, leadTime, active, createdAt, updatedAt
+    ) VALUES (cmms_write_plant(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    itemNo,
+    null,
+    category,
+    name,
+    uom,
+    Number(input.price ?? 0),
+    input.partRank?.trim() || "",
+    input.status?.trim() || "Active",
+    input.stockRank?.trim() || "",
+    minStock,
+    maxStock,
+    name,
+    currentStock,
+    currentStock,
+    input.source?.trim() || "manual",
+    input.supplier?.trim() || "",
+    "",
+    "",
+    "",
+    input.leadTime?.trim() || "",
+    1,
+    timestamp,
+    timestamp
+  );
+
+  return getSparePart(itemNo);
+}
+
 export function listSpareMovementsForActor(actorId: string): StockMovementDetail[] {
   const actor = requireSpareActor(actorId);
   if (actor.role === "requester") {

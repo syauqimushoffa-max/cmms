@@ -90,9 +90,9 @@ function percent(value: number, total: number) {
 }
 
 function money(value: number) {
-  return new Intl.NumberFormat("en-MY", {
+  return new Intl.NumberFormat("en-ID", {
     style: "currency",
-    currency: "MYR",
+    currency: "IDR",
     maximumFractionDigits: value >= 10000 ? 0 : 2
   }).format(value);
 }

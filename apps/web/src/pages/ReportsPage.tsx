@@ -91,7 +91,7 @@ function percent(value: number, total: number) {
 }
 
 function money(value: number) {
-  return new Intl.NumberFormat("en-MY", { style: "currency", currency: "MYR", maximumFractionDigits: 0 }).format(value);
+  return new Intl.NumberFormat("en-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
 }
 
 function dateAtStart(value: Date) {

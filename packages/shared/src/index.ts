@@ -614,6 +614,25 @@ export interface SpareInventoryResponse {
   syncConfigured: boolean;
 }
 
+export interface CreateSparePartInput {
+  actorId: string;
+  itemNo: string;
+  name: string;
+  category?: string;
+  uom?: string;
+  currentStock?: number;
+  minStock?: number;
+  maxStock?: number;
+  supplier?: string;
+  price?: number;
+  partRank?: string;
+  status?: string;
+  stockRank?: string;
+  source?: string;
+  leadTime?: string;
+  description?: string;
+}
+
 export interface SpareImportInput {
   actorId: string;
   masterText: string;
