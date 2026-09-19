@@ -1,0 +1,14 @@
+.git
+.agents
+.codex
+.pnpm-store
+node_modules
+**/node_modules
+**/dist
+apps/api/data
+apps/api/uploads
+backups
+tmp
+*.log
+.env
+.env.*

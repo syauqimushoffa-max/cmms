@@ -1,0 +1,19 @@
+{
+  "name": "pbs-cmms-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PBS CMMS foundation with React PWA, Express API, SQLite, and work order MVP.",
+  "scripts": {
+    "test:plants": "pnpm --filter @pbs-cmms/api build && node apps/api/test/plant-migration.mjs && node apps/api/test/plant-isolation.mjs && node apps/api/test/work-order-management.mjs",
+    "dev": "pnpm --filter @pbs-cmms/shared build && concurrently -n API,WEB -c cyan,green \"pnpm --filter @pbs-cmms/api dev\" \"pnpm --filter @pbs-cmms/web dev\"",
+    "build": "pnpm --filter @pbs-cmms/shared build && pnpm --filter @pbs-cmms/api build && pnpm --filter @pbs-cmms/web build",
+    "typecheck": "pnpm --filter @pbs-cmms/shared typecheck && pnpm --filter @pbs-cmms/api typecheck && pnpm --filter @pbs-cmms/web typecheck",
+    "push:keys": "pnpm --filter @pbs-cmms/api push:keys",
+    "start": "pnpm --filter @pbs-cmms/api start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "/requester",
+  "name": "PBS CMMS Requester",
+  "short_name": "Sugi Request",
+  "description": "Guest work order requests and secure production requester tracking for PBS CMMS.",
+  "start_url": "/requester",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8f4f4",
+  "theme_color": "#7f111b",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/cmms-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Issue Work Order",
+      "short_name": "Issue",
+      "description": "Open requester work order form.",
+      "url": "/requester",
+      "icons": [
+        {
+          "src": "/icons/cmms-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

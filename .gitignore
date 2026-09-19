@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.pnpm-store/
+.env
+.env.local
+*.log
+
+# Local development data
+apps/api/data/
+apps/api/uploads/
+backups/
+output/
+tmp/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/

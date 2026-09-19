@@ -1,0 +1,20 @@
+[Unit]
+Description=PBS CMMS
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/opt/pbs-cmms
+Environment=NODE_ENV=production
+Environment=PORT=3300
+EnvironmentFile=-/opt/pbs-cmms/.env
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/usr/bin/env node apps/api/dist/server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,31 @@
+services:
+  cmms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pbs-cmms
+    restart: unless-stopped
+    ports:
+      - "${CMMS_PORT:-3300}:3300"
+    environment:
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-admin}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
+      DEVELOPER_USERNAME: "${DEVELOPER_USERNAME:-developer}"
+      DEVELOPER_PASSWORD: "${DEVELOPER_PASSWORD:-}"
+      DEVELOPER_NAME: "${DEVELOPER_NAME:-CMMS Developer}"
+      USER_PASSWORDS_JSON: '${USER_PASSWORDS_JSON:-}'
+      APP_PUBLIC_URL: "${APP_PUBLIC_URL:-}"
+      VAPID_SUBJECT: "${VAPID_SUBJECT:-mailto:cmms@example.com}"
+      VAPID_PUBLIC_KEY: "${VAPID_PUBLIC_KEY:-}"
+      VAPID_PRIVATE_KEY: "${VAPID_PRIVATE_KEY:-}"
+      WORK_ORDER_SYNC_SCRIPT_URL: "${WORK_ORDER_SYNC_SCRIPT_URL:-}"
+      WORK_ORDER_SYNC_TOKEN: "${WORK_ORDER_SYNC_TOKEN:-}"
+      WORK_ORDER_SYNC_SHEET_NAME: "${WORK_ORDER_SYNC_SHEET_NAME:-WorkOrders}"
+      WORK_ORDER_WEBHOOK_URL: "${WORK_ORDER_WEBHOOK_URL:-}"
+    volumes:
+      - cmms-data:/app/apps/api/data
+      - cmms-uploads:/app/apps/api/uploads
+
+volumes:
+  cmms-data:
+  cmms-uploads:

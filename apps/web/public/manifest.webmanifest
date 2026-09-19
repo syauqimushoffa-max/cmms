@@ -1,0 +1,62 @@
+{
+  "id": "/technician",
+  "name": "PBS CMMS Technician",
+  "short_name": "Sugi Tech",
+  "description": "Technician work orders, parts movement, and preventive maintenance for PBS CMMS.",
+  "start_url": "/technician",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8f4f4",
+  "theme_color": "#7f111b",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/cmms-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Technician Jobs",
+      "short_name": "Jobs",
+      "description": "Open the technician work order queue.",
+      "url": "/technician",
+      "icons": [
+        {
+          "src": "/icons/cmms-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Spare Parts",
+      "short_name": "Parts",
+      "description": "Open spare parts movement.",
+      "url": "/spare-parts",
+      "icons": [
+        {
+          "src": "/icons/cmms-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Preventive Maintenance",
+      "short_name": "PM",
+      "description": "Open preventive maintenance schedules.",
+      "url": "/preventive-maintenance",
+      "icons": [
+        {
+          "src": "/icons/cmms-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
